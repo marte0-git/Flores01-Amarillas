@@ -10,28 +10,75 @@ iniciarMusica();
    ============================================================ */
 const CARTAS = [
     {
-        mensaje: "Eres y serás siempre esa mitad exacta que le da sentido a mi vida; el seis perfecto de mi siete.",
-        imagen: "../imagenes/imagen17.png"
+        mensaje: "Ojitos lindos...",
+        imagen: "../imagenes/imagen42.png"
+    },{
+        mensaje: "Hay personas que pueden pasar desapercibidas entre tanta gente, pero tú nunca has sido una de ellas.",
+        imagen: "../imagenes/imagen40.png"
     },
     {
-        mensaje: "Lucharía y movería cielo y tierra la vida entera solo por sacarte una sonrisa, mi enojona hermosa.",
-        imagen: "../imagenes/imagen18.png"
+        mensaje: "Y este año no quería que fueras solo una espectadora...",
+        imagen: "../imagenes/imagen43.png"
     },
     {
-        mensaje: "En la calma y en la tormenta, mi mano siempre sostendrá la tuya, mi chiquitita.",
-        imagen: "../imagenes/imagen21.png"
+        mensaje: "tú también merecías tus flores amarillas",
+        imagen: "../imagenes/imagen49.png"
     },
     {
-        mensaje: "Eres el arte que inspira cada uno de mis días y el amor más bonito de mi existencia.",
-        imagen: "../imagenes/imagen19.png"
+        mensaje: "Una chica como tú no debería quedarse sin un detalle bonito ",
+        imagen: "../imagenes/imagen58.png"
     },
     {
-        mensaje: "Caminaremos juntos paso a paso, porque en nuestro destino, soltarnos jamás será una opción.",
-        imagen: "../imagenes/imagen20.png"
+        mensaje: "Y no sé por qué, pero imaginar que todo esto pueda sacarte aunque sea una pequeña sonrisa…",
+        imagen: "../imagenes/imagen45.png"
     },
     {
-        mensaje: "Esto es solo el comienzo…",
-        imagen: "../imagenes/imagen23.png"
+        mensaje: "hace que valga la pena",
+        imagen: "../imagenes/imagen51.png"
+    },
+    {
+        mensaje: "Quizás el momento no sea el adecuado, quizás la vida haya llevado muchas cosas por caminos distintos…",
+        imagen: "../imagenes/imagen52.png"
+    },
+    {
+        mensaje: "Pero no podía dejar pasar por alto esta fecha sin que, aunque sea por un momento, te hicieran sentir especial y recordarte lo linda e importante que eres para algunas personas.",
+        imagen: "../imagenes/imagen54.png"
+    },
+    {
+        mensaje: "Por más dura que pueda ponerse la vida, por más días malos que aparezcan…",
+        imagen: "../imagenes/imagen60.png"
+    },
+    {
+        mensaje: "no dejes que nada te quite esa forma tan bonita que tienes de ver y de sonreír.",
+        imagen: "../imagenes/imagen61.png"
+    },
+       {
+        mensaje: "Ojalá la vida te devuelva algún día todo lo bonito que das sin siquiera darte cuenta.",
+        imagen: "../imagenes/imagen63.png"
+    },
+   {
+        mensaje: "Que te lleguen personas, momentos y razones que te hagan sentir tan especial como realmente eres.",
+        imagen: "../imagenes/imagen64.png"
+    },
+       {
+        mensaje: "Y sobre todo… que nunca se te olvide lo mucho que vales.",
+        imagen: "../imagenes/imagen66.png"
+    },
+       {
+        mensaje: "Porque incluso las flores necesitan una estación para volver a florecer.",
+        imagen: "../imagenes/imagen65.png"
+    },
+       {
+        mensaje: "Y hoy comienza una muy especial...",
+        imagen: "../imagenes/imagen68.png"
+    },
+    {
+        mensaje: 'Feliz inicio de la "PRIMAVERA."',
+        imagen: "../imagenes/imagen55.png"
+    },
+     {
+        mensaje: 'Y hablando de PRIMAVERA... creo que todavía falta algo. Después de todo... qué sería de una primavera sin flores?',
+        imagen: "../imagenes/imagen67.png"
     }
 ];
 
@@ -206,27 +253,38 @@ for (let i = 0; i < 6; i++) {
 /* ============================================================
    7) ANIMACIÓN LETRA POR LETRA (B2)
    ============================================================ */
+/* ============================================================
+   ANIMACIÓN PALABRA POR PALABRA (B2) — v2
+   Anima cada palabra completa (no cada letra) para que
+   el texto no se corte por la mitad.
+   ============================================================ */
 function animarTextoLetraPorLetra(elemento) {
     if (!elemento) return;
 
     const textoOriginal = elemento.textContent || '';
     elemento.textContent = '';
 
-    let delay = 0;
-    for (let i = 0; i < textoOriginal.length; i++) {
-        const caracter = textoOriginal[i];
-        const span = document.createElement('span');
-        span.className = 'letra';
-        span.style.animationDelay = `${delay}s`;
+    // Separar por palabras conservando los espacios
+    const palabras = textoOriginal.split(/(\s+)/);
 
-        if (caracter === ' ') {
-            span.innerHTML = '&nbsp;';
-        } else {
-            span.textContent = caracter;
+    let delay = 0;
+    for (let i = 0; i < palabras.length; i++) {
+        const palabra = palabras[i];
+
+        // Si es solo espacio, lo añadimos directo
+        if (/^\s+$/.test(palabra)) {
+            elemento.appendChild(document.createTextNode(palabra));
+            continue;
         }
 
+        // Envolvemos la palabra completa
+        const span = document.createElement('span');
+        span.className = 'palabra';
+        span.style.animationDelay = `${delay}s`;
+        span.textContent = palabra;
         elemento.appendChild(span);
-        delay += 0.03;   // 30ms por letra → ajusta si quieres más rápido/lento
+
+        delay += 0.15;   // 150ms entre palabras (ajusta a gusto)
     }
 }
 
